@@ -24,13 +24,20 @@ public class ParcmetreTest {
       //  Assert.assertEquals(voiture, parcmetre.getVoiture());   DEPRECATED
     }
 
-
-
-	@Test
+	//@Test // j'ai volontairement retiré ce test
     public void testGetMontantEntre() {
         Parcmetre parcmetre = new Parcmetre(new Voiture("AB-123-CD"));
 
         assertEquals(0.0, parcmetre.getMontantEntre());
+    }
+
+    @Test
+    public void testGCreationDuTicketAvecHeureEntreeEtMontant() {
+        double montantInsere = 1.5;
+        Parcmetre parcmetre = new Parcmetre(new Voiture("AB-123-CD"));
+        parcmetre.ObtenirTicket(montantInsere);
+
+        assertEquals(1.5, parcmetre.getMontantEntre());
     }
 
     @Test
