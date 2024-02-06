@@ -5,7 +5,8 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 
-public class Horloge {
+// cette classe n'a aucune raison d'exister à part d'être un gros fourre tout de bugs 💩
+public class GrosBordel {
 	
 	private LocalDateTime tryNextMorning(LocalDateTime heureEntree) {
 		LocalDateTime newHeureEntree = LocalDateTime.of(heureEntree.getYear(), heureEntree.getMonthValue(), heureEntree.getDayOfMonth(), 9, 0);

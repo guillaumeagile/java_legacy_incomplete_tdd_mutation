@@ -6,13 +6,13 @@ public class Parcmetre {
 	private Voiture voiture;
 	private double montantEntre;
 	private LocalDateTime dateEntree;
-	private Horloge horloge; 
+	private GrosBordel horloge;
 	
 	public Parcmetre(Voiture voiture, LocalDateTime dateEntree, double montant) {
 		this.voiture = voiture;
 		this.dateEntree = dateEntree; 
 		this.montantEntre = montant; 
-		this.horloge = new Horloge();
+		this.horloge = new GrosBordel();
 	}
 	
 	public Voiture getVoiture() {

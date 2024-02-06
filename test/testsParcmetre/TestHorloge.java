@@ -6,16 +6,16 @@ import java.time.LocalDateTime;
 
 import org.junit.Before;
 import org.junit.Test;
-import parcmetre.Horloge;
+import parcmetre.GrosBordel;
 
 
 public class TestHorloge {
 	
-	Horloge horloge;
+	GrosBordel horloge;
 	
 	@Before
 	public void setUp() throws Exception {
-		this.horloge = new Horloge();
+		this.horloge = new GrosBordel();
 	}
 
 	@Test
