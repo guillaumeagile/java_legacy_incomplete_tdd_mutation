@@ -10,7 +10,7 @@ public class Ticket {
     public String text() {
     	Voiture voiture = parcmetre.getVoiture();
     	String dateSortie = parcmetre.getHeureFin();
-    	GrosBordel h = new GrosBordel();
+    	FourreTout h = new FourreTout();
     	StringBuilder res = new StringBuilder();
     	res.append("========== Ticket de stationnement ==========\n\n");
     	res.append("Votre vehicule : ");

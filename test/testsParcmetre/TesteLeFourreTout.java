@@ -6,10 +6,10 @@ import java.time.LocalDateTime;
 
 import org.junit.Before;
 import org.junit.Test;
-import parcmetre.GrosBordel;
+import parcmetre.FourreTout;
 
 
-public class TesteLeGrosBordel {
+public class TesteLeFourreTout {
 
 	@Before
 	public void setUp() {
@@ -20,29 +20,29 @@ public class TesteLeGrosBordel {
     public void testCalculerFin() {
         LocalDateTime debut = LocalDateTime.of(2023, 3, 15, 10, 0);
 
-        LocalDateTime fin = GrosBordel.calculerFin(debut, 2);
+        LocalDateTime fin = FourreTout.calculerFin(debut, 2);
 
         assertEquals(LocalDateTime.of(2023, 3, 15, 12, 0), fin);
     }
 
     @Test
     public void testEstJourFerie() {
-        assertFalse(GrosBordel.estJourFerie(LocalDateTime.of(2023, 3, 15, 12, 0)));
+        assertFalse(FourreTout.estJourFerie(LocalDateTime.of(2023, 3, 15, 12, 0)));
     }
 
     @Test
     public void testCalculerPaques() {
-        assertEquals(LocalDateTime.of(2023, 4, 9, 0, 0), GrosBordel.calculerPaques(2023));
+        assertEquals(LocalDateTime.of(2023, 4, 9, 0, 0), FourreTout.calculerPaques(2023));
     }
 
     @Test
     public void testEstDimanche() {
-        assertFalse(GrosBordel.estDimanche(LocalDateTime.of(2023, 3, 15, 12, 0)));
+        assertFalse(FourreTout.estDimanche(LocalDateTime.of(2023, 3, 15, 12, 0)));
     }
 
     @Test
     public void testEstPeriodeFermee() {
-        assertFalse(GrosBordel.estPeriodeFermee(LocalDateTime.of(2023, 3, 15, 12, 0)));
+        assertFalse(FourreTout.estPeriodeFermee(LocalDateTime.of(2023, 3, 15, 12, 0)));
     }
 
 }
