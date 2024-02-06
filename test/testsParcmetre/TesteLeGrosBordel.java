@@ -10,41 +10,39 @@ import parcmetre.GrosBordel;
 
 
 public class TesteLeGrosBordel {
-	
-	GrosBordel bordel;
-	
+
 	@Before
-	public void setUp() throws Exception {
-		this.bordel = new GrosBordel();
+	public void setUp() {
+
 	}
 
 	@Test
     public void testCalculerFin() {
         LocalDateTime debut = LocalDateTime.of(2023, 3, 15, 10, 0);
 
-        LocalDateTime fin = bordel.calculerFin(debut, 2);
+        LocalDateTime fin = GrosBordel.calculerFin(debut, 2);
 
         assertEquals(LocalDateTime.of(2023, 3, 15, 12, 0), fin);
     }
 
     @Test
     public void testEstJourFerie() {
-        assertFalse(bordel.estJourFerie(LocalDateTime.of(2023, 3, 15, 12, 0)));
+        assertFalse(GrosBordel.estJourFerie(LocalDateTime.of(2023, 3, 15, 12, 0)));
     }
 
     @Test
     public void testCalculerPaques() {
-        assertEquals(LocalDateTime.of(2023, 4, 9, 0, 0), bordel.calculerPaques(2023));
+        assertEquals(LocalDateTime.of(2023, 4, 9, 0, 0), GrosBordel.calculerPaques(2023));
     }
 
     @Test
     public void testEstDimanche() {
-        assertFalse(bordel.estDimanche(LocalDateTime.of(2023, 3, 15, 12, 0)));
+        assertFalse(GrosBordel.estDimanche(LocalDateTime.of(2023, 3, 15, 12, 0)));
     }
 
     @Test
     public void testEstPeriodeFermee() {
-        assertFalse(bordel.estPeriodeFermee(LocalDateTime.of(2023, 3, 15, 12, 0)));
+        assertFalse(GrosBordel.estPeriodeFermee(LocalDateTime.of(2023, 3, 15, 12, 0)));
     }
 
 }

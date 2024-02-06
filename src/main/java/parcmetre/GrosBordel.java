@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatter;
 
 // cette classe n'a aucune raison d'exister à part d'être un gros fourre tout de bugs 💩
 public class GrosBordel {
-	
-	private LocalDateTime tryNextMorning(LocalDateTime heureEntree) {
+
+    private static LocalDateTime tryNextMorning(LocalDateTime heureEntree) {
 		LocalDateTime newHeureEntree = LocalDateTime.of(heureEntree.getYear(), heureEntree.getMonthValue(), heureEntree.getDayOfMonth(), 9, 0);
 		if (heureEntree.getHour() >= 9) {
 			newHeureEntree = newHeureEntree.plusDays(1);
@@ -16,11 +16,11 @@ public class GrosBordel {
 		return newHeureEntree;
 	}
 	
-	public boolean estEntre9et19(LocalDateTime date) {
+	public static boolean estEntre9et19(LocalDateTime date) {
 		return date.getHour() >= 9 && date.getHour() <= 18;
 	}
 	
-	private boolean heureEntreePayante(LocalDateTime heureEntree) {
+	private static boolean heureEntreePayante(LocalDateTime heureEntree) {
 		boolean payant = true;
 		if (!estEntre9et19(heureEntree) || estDimanche(heureEntree) || estJourFerie(heureEntree)
 				|| estPeriodeFermee(heureEntree)) {
@@ -29,7 +29,7 @@ public class GrosBordel {
 		return payant;
 	}
 	
-	public LocalDateTime calculerFin(LocalDateTime heureEntree, int tempsStationnementMinutes) {
+	public static LocalDateTime calculerFin(LocalDateTime heureEntree, int tempsStationnementMinutes) {
 		while (!heureEntreePayante(heureEntree)) {
 			heureEntree = tryNextMorning(heureEntree);
 		}
@@ -50,14 +50,14 @@ public class GrosBordel {
 		return heureSortie;
 	}
 	
-	public String formatageHeure(LocalDateTime heure) {
+	public static String formatageHeure(LocalDateTime heure) {
 		String date_format = "dd-MM-yyyy HH:mm";
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(date_format);
 		return heure.format(formatter);
 	}
 	
  // Fonction qui vérifie si une date est un jour férié en France
-    public boolean estJourFerie(LocalDateTime date) {
+    public static boolean estJourFerie(LocalDateTime date) {
         int annee = date.getYear();
         LocalDateTime paques = calculerPaques(annee);
         LocalDateTime lundiPaques = paques.plusDays(1);
@@ -107,7 +107,7 @@ public class GrosBordel {
     }
     
  // Fonction qui calcule la date de Pâques pour une année donnée
-    public LocalDateTime calculerPaques(int annee) {
+    public static LocalDateTime calculerPaques(int annee) {
         int a = annee / 100;
         int b = annee % 100;
         int c = (3 * (a + 25)) / 4;
@@ -132,12 +132,12 @@ public class GrosBordel {
     }
     
     // Fonction qui vérifie si une date est un dimanche
-    public boolean estDimanche(LocalDateTime date) {
+    public static boolean estDimanche(LocalDateTime date) {
         return date.getDayOfWeek() == DayOfWeek.SUNDAY;
     }
     
     // Fonction qui vérifie si une date est entre le 10 et le 15 août inclus
-    public boolean estPeriodeFermee(LocalDateTime date) {
+    public static boolean estPeriodeFermee(LocalDateTime date) {
     	return date.getMonthValue() == 8 && date.getDayOfMonth() < 16;
     }
 
