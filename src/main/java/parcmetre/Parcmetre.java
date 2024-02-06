@@ -6,13 +6,12 @@ public class Parcmetre {
 	private Voiture voiture;
 	private double montantEntre;
 	private LocalDateTime dateEntree;
-	private FourreTout horloge;
+	private FourreTout fourreTout;
 	
-	public Parcmetre(Voiture voiture, LocalDateTime dateEntree, double montant) {
+	public Parcmetre(Voiture voiture) {
 		this.voiture = voiture;
-		this.dateEntree = dateEntree; 
-		this.montantEntre = montant; 
-		this.horloge = new FourreTout();
+		this.montantEntre = 0;
+		this.fourreTout = new FourreTout();
 	}
 	
 	public Voiture getVoiture() {
@@ -28,7 +27,7 @@ public class Parcmetre {
 	}
 	
 	public String getHeureFin() {
-		return this.horloge.formatageHeure(this.horloge.calculerFin(this.dateEntree, calculerDureeStationnement(this.montantEntre)));
+		return this.fourreTout.formatageHeure(this.fourreTout.calculerFin(this.dateEntree, calculerDureeStationnement(this.montantEntre)));
 	}
 	
 	public static int calculerDureeStationnement(double montantPaye) {
