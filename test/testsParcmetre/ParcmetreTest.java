@@ -10,6 +10,7 @@ import parcmetre.*;
 
 public class ParcmetreTest {
 
+    // il vous faut critiquer chaque test, dire si il sert à quelque chose, si il est propre ou pas.
     @Test
     public void testGetVoiture() {
         Voiture voiture = new Voiture("AB-123-CD");

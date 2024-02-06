@@ -9,42 +9,42 @@ import org.junit.Test;
 import parcmetre.GrosBordel;
 
 
-public class TestHorloge {
+public class TesteLeGrosBordel {
 	
-	GrosBordel horloge;
+	GrosBordel bordel;
 	
 	@Before
 	public void setUp() throws Exception {
-		this.horloge = new GrosBordel();
+		this.bordel = new GrosBordel();
 	}
 
 	@Test
     public void testCalculerFin() {
         LocalDateTime debut = LocalDateTime.of(2023, 3, 15, 10, 0);
 
-        LocalDateTime fin = horloge.calculerFin(debut, 2);
+        LocalDateTime fin = bordel.calculerFin(debut, 2);
 
         assertEquals(LocalDateTime.of(2023, 3, 15, 12, 0), fin);
     }
 
     @Test
     public void testEstJourFerie() {
-        assertFalse(horloge.estJourFerie(LocalDateTime.of(2023, 3, 15, 12, 0)));
+        assertFalse(bordel.estJourFerie(LocalDateTime.of(2023, 3, 15, 12, 0)));
     }
 
     @Test
     public void testCalculerPaques() {
-        assertEquals(LocalDateTime.of(2023, 4, 9, 0, 0), horloge.calculerPaques(2023));
+        assertEquals(LocalDateTime.of(2023, 4, 9, 0, 0), bordel.calculerPaques(2023));
     }
 
     @Test
     public void testEstDimanche() {
-        assertFalse(horloge.estDimanche(LocalDateTime.of(2023, 3, 15, 12, 0)));
+        assertFalse(bordel.estDimanche(LocalDateTime.of(2023, 3, 15, 12, 0)));
     }
 
     @Test
     public void testEstPeriodeFermee() {
-        assertFalse(horloge.estPeriodeFermee(LocalDateTime.of(2023, 3, 15, 12, 0)));
+        assertFalse(bordel.estPeriodeFermee(LocalDateTime.of(2023, 3, 15, 12, 0)));
     }
 
 }
