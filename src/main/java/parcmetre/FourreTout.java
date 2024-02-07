@@ -14,14 +14,6 @@ import static org.joda.time.DateTimeConstants.JANUARY;
 // cette classe n'a aucune raison d'exister à part d'être un gros fourre tout de bugs 💩
 public class FourreTout {
 
-    private static LocalDateTime tryNextMorning(LocalDateTime heureEntree) {
-		LocalDateTime newHeureEntree = LocalDateTime.of(heureEntree.getYear(), heureEntree.getMonthValue(), heureEntree.getDayOfMonth(), 9, 0);
-		if (heureEntree.getHour() >= 9) {
-			newHeureEntree = newHeureEntree.plusDays(1);
-		}
-		return newHeureEntree;
-	}
-	
 	public static boolean estEntre9et19(DateTime date) {
 		return date.getHourOfDay() >= 9 && date.getHourOfDay() <= 18;
 	}
@@ -94,31 +86,7 @@ public class FourreTout {
         return false;
     }
     
- // Fonction qui calcule la date de Pâques pour une année donnée
-    public static LocalDateTime calculerPaques(int annee) {
-        int a = annee / 100;
-        int b = annee % 100;
-        int c = (3 * (a + 25)) / 4;
-        int d = (3 * (a + 25)) % 4;
-        int e = (8 * (a + 11)) / 25;
-        int f = (5 * a + b) % 19;
-        int g = (19 * f + c - e) % 30;
-        int h = (f + 11 * g) / 319;
-        int j = (60 * (5 - d) + b) / 4;
-        int k = (60 * (5 - d) + b) % 4;
-        int m = (2 * j - k - g + h) % 7;
-        int n = (g - h + m + 114) / 31;
-        int p = (g - h + m + 114) % 31;
-        int jour = p + 1;
-        int mois = n;
-        
-     // Heure et minute arbitraires (00:00)
-        int heure = LocalDateTime.now().getHour();
-        int minutes = LocalDateTime.now().getMinute();
 
-        return LocalDateTime.of(annee, mois, jour, heure, minutes);
-    }
-    
     // Fonction qui vérifie si une date est un dimanche
     public static boolean estDimanche(DateTime date) {
         return date.getDayOfWeek() ==  DateTimeConstants.SUNDAY;
