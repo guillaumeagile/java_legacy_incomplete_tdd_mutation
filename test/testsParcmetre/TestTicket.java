@@ -18,7 +18,8 @@ public class TestTicket {
 	public void setUp() throws Exception {
 		Voiture voiture = new Voiture("AA-123-BB");
 		LocalDateTime dateEntree = LocalDateTime.of(2023, Month.APRIL, 1, 12, 0);
-		Parcmetre parcmetre = new Parcmetre(voiture);
+		IHorloge horlogeSystem  =new HorlogeSystem();
+		Parcmetre parcmetre = new Parcmetre(voiture, horlogeSystem);
 		ticket = new Ticket(parcmetre);
 	}
 	

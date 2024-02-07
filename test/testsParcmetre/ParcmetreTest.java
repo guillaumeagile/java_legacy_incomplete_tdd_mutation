@@ -1,6 +1,8 @@
 package testsParcmetre;
 
+import org.joda.time.DateTime;
 import org.junit.Test;
+import parcmetre.IHorloge;
 import parcmetre.Parcmetre;
 import parcmetre.Voiture;
 
@@ -12,13 +14,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SuppressWarnings("ALL")
 public class ParcmetreTest {
-
+    IHorloge fausseHorloge = new HorlogeBloquee();
     // il vous faut critiquer chaque test, dire si il sert à quelque chose, si il est propre ou pas.
     @Test
     public void testGetVoiture() {
         Voiture voiture = new Voiture("AB-123-CD");
 
-        Parcmetre parcmetre = new Parcmetre(voiture);
+        Parcmetre parcmetre = new Parcmetre(voiture, fausseHorloge);
 
         assertThat(voiture).isEqualTo(parcmetre.getVoiture());  // org.assertj.core.api.Assertions
       //  Assert.assertEquals(voiture, parcmetre.getVoiture());   DEPRECATED
@@ -26,24 +28,34 @@ public class ParcmetreTest {
 
 	//@Test // j'ai volontairement retiré ce test
     public void testGetMontantEntre() {
-        Parcmetre parcmetre = new Parcmetre(new Voiture("AB-123-CD"));
+        Parcmetre parcmetre = new Parcmetre(new Voiture("AB-123-CD"), fausseHorloge);
 
-        assertEquals(0.0, parcmetre.getMontantEntre());
+        assertEquals(0.0, parcmetre.getMontantEntree());
     }
 
     @Test
-    public void testGCreationDuTicketAvecHeureEntreeEtMontant() {
+    public void testGCreationDuTicketAvecMontant() {
         double montantInsere = 1.5;
-        Parcmetre parcmetre = new Parcmetre(new Voiture("AB-123-CD"));
+        Parcmetre parcmetre = new Parcmetre(new Voiture("AB-123-CD"), fausseHorloge);
         parcmetre.ObtenirTicket(montantInsere);
 
-        assertEquals(1.5, parcmetre.getMontantEntre());
+        assertEquals(1.5, parcmetre.getMontantEntree());
+    }
+
+    @Test
+    public void testGCreationDuTicketAvecHeureEntree() {
+        double montantInsere = 1.5;
+
+        Parcmetre parcmetre = new Parcmetre(new Voiture("AB-123-CD") , fausseHorloge);
+        parcmetre.ObtenirTicket(montantInsere);
+
+        assertEquals(DateTime.parse("2005-03-26"), parcmetre.getDateHeureEntree());
     }
 
     @Test
     public void testGetHeureFin() {
         LocalDateTime dateEntree = LocalDateTime.now();
-        Parcmetre parcmetre = new Parcmetre(new Voiture("AB-123-CD"));
+        Parcmetre parcmetre = new Parcmetre(new Voiture("AB-123-CD"), fausseHorloge);
 
         assertEquals(dateEntree.plusHours(Parcmetre.calculerDureeStationnement(10.0)), parcmetre.getHeureFin());
     }

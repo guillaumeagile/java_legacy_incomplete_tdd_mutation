@@ -1,5 +1,6 @@
 package parcmetre;
 
+// expliquez moi comment je vais tester cette classe ?????
 public class ImprimanteTicket {
 	
 	public void imprimer(Ticket ticket) {

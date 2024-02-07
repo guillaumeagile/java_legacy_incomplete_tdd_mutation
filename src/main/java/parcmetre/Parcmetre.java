@@ -1,28 +1,31 @@
 package parcmetre;
 
+import org.joda.time.DateTime;
+
 import java.time.LocalDateTime;
 
 public class Parcmetre {
-	private Voiture voiture;
+	private final IHorloge horlogeInterne;
+	private final Voiture voiture;
 	private double montantEntre;
-	private LocalDateTime dateEntree;
+	private DateTime dateEntree;
 
 	
-	public Parcmetre(Voiture voiture) {
+	public Parcmetre(Voiture voiture, IHorloge horlogeInterne) {
 		this.voiture = voiture;
 		this.montantEntre = 0;
-
+		this.horlogeInterne = horlogeInterne;
 	}
 	
 	public Voiture getVoiture() {
 		return this.voiture; 
 	}
 	
-	public LocalDateTime getDateEntree() {
+	public DateTime getDateHeureEntree() {
 		return this.dateEntree; 
 	}
 	
-	public double getMontantEntre() {
+	public double getMontantEntree() {
 		return this.montantEntre; 
 	}
 	
@@ -43,5 +46,7 @@ public class Parcmetre {
 	}
 
 	public void ObtenirTicket(double montantInsere) {
+		this.montantEntre = montantInsere;
+		this.dateEntree = this.horlogeInterne.ilEstExactement();
 	}
 }

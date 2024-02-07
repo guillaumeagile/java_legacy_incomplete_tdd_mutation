@@ -1,9 +1,15 @@
 package parcmetre;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeConstants;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.format.DateTimeFormatter;
+
+import static org.joda.time.DateTimeConstants.JANUARY;
 
 // cette classe n'a aucune raison d'exister à part d'être un gros fourre tout de bugs 💩
 public class FourreTout {
@@ -16,11 +22,11 @@ public class FourreTout {
 		return newHeureEntree;
 	}
 	
-	public static boolean estEntre9et19(LocalDateTime date) {
-		return date.getHour() >= 9 && date.getHour() <= 18;
+	public static boolean estEntre9et19(DateTime date) {
+		return date.getHourOfDay() >= 9 && date.getHourOfDay() <= 18;
 	}
 	
-	private static boolean heureEntreePayante(LocalDateTime heureEntree) {
+	private static boolean heureEntreePayante(DateTime heureEntree) {
 		boolean payant = true;
 		if (!estEntre9et19(heureEntree) || estDimanche(heureEntree) || estJourFerie(heureEntree)
 				|| estPeriodeFermee(heureEntree)) {
@@ -29,11 +35,9 @@ public class FourreTout {
 		return payant;
 	}
 	
-	public static LocalDateTime calculerFin(LocalDateTime heureEntree, int tempsStationnementMinutes) {
-		while (!heureEntreePayante(heureEntree)) {
-			heureEntree = tryNextMorning(heureEntree);
-		}
-		LocalDateTime heureSortie = heureEntree.plusMinutes(tempsStationnementMinutes);
+	public static DateTime calculerFin(DateTime heureEntree, int tempsStationnementMinutes) {
+
+		DateTime heureSortie = heureEntree.plusMinutes(tempsStationnementMinutes);
 		if (!estEntre9et19(heureSortie)) {	
 			System.out.println("C'est tard");// Si on dépasse 19h,
 			heureSortie = heureSortie.plusMinutes(840);		// on ajoute 14h (840min) à l'heure de sortie
@@ -50,59 +54,43 @@ public class FourreTout {
 		return heureSortie;
 	}
 	
-	public static String formatageHeure(LocalDateTime heure) {
+	public static String formatageHeure(DateTime heure) {
 		String date_format = "dd-MM-yyyy HH:mm";
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(date_format);
-		return heure.format(formatter);
+        DateTimeFormatter fmt = DateTimeFormat.forPattern(date_format);
+        return heure.toString(fmt);
 	}
 	
  // Fonction qui vérifie si une date est un jour férié en France
-    public static boolean estJourFerie(LocalDateTime date) {
+    public static boolean estJourFerie(DateTime date) {
         int annee = date.getYear();
-        LocalDateTime paques = calculerPaques(annee);
-        LocalDateTime lundiPaques = paques.plusDays(1);
-        LocalDateTime ascension = paques.plusDays(39);
-        LocalDateTime lundiPentecote = paques.plusDays(50);
+//        LocalDateTime paques = calculerPaques(annee);
+//        LocalDateTime lundiPaques = paques.plusDays(1);
+//        LocalDateTime ascension = paques.plusDays(39);
+//        LocalDateTime lundiPentecote = paques.plusDays(50);
         
         // Jours fériés fixes
-        if (date.getMonth() == Month.JANUARY && date.getDayOfMonth() == 1) {
+        if (date.getMonthOfYear() == JANUARY && date.getDayOfMonth() == 1) {
             return true; // 1er janvier
         }
-        if (date.getMonth() == Month.MAY && date.getDayOfMonth() == 1) {
+        if (date.getMonthOfYear() == DateTimeConstants.MAY && date.getDayOfMonth() == 1) {
             return true; // 1er mai
         }
-        if (date.getMonth() == Month.MAY && date.getDayOfMonth() == 8) {
+        if (date.getMonthOfYear() == DateTimeConstants.MAY && date.getDayOfMonth() == 8) {
             return true; // 8 mai
         }
-        if (date.getMonth() == Month.JULY && date.getDayOfMonth() == 14) {
+        if (date.getMonthOfYear() == DateTimeConstants.JULY && date.getDayOfMonth() == 14) {
             return true; // 14 juillet
         }
-        if (date.getMonth() == Month.AUGUST && date.getDayOfMonth() == 15) {
+        if (date.getMonthOfYear() == DateTimeConstants.AUGUST && date.getDayOfMonth() == 15) {
             return true; // 15 août
         }
-        if (date.getMonth() == Month.NOVEMBER && date.getDayOfMonth() == 1) {
+        if (date.getMonthOfYear() == DateTimeConstants.NOVEMBER && date.getDayOfMonth() == 1) {
             return true; // 1er novembre
         }
-        if (date.getMonth() == Month.DECEMBER && date.getDayOfMonth() == 25) {
+        if (date.getMonthOfYear() == DateTimeConstants.DECEMBER && date.getDayOfMonth() == 25) {
             return true; // 25 décembre
         }
-        
-        // Jours fériés mobiles
-        if (date.isEqual(paques)) {
-            return true; // Pâques
-        }
-        if (date.isEqual(lundiPaques)) {
-            return true; // Lundi de Paques
 
-            
-        }
-        if (date.isEqual(ascension)) {
-            return true; // Ascension
-        }
-        if (date.isEqual(lundiPentecote)) {
-            return true; // Lundi de Pentecôte
-        }
-        
         return false;
     }
     
@@ -132,13 +120,13 @@ public class FourreTout {
     }
     
     // Fonction qui vérifie si une date est un dimanche
-    public static boolean estDimanche(LocalDateTime date) {
-        return date.getDayOfWeek() == DayOfWeek.SUNDAY;
+    public static boolean estDimanche(DateTime date) {
+        return date.getDayOfWeek() ==  DateTimeConstants.SUNDAY;
     }
     
     // Fonction qui vérifie si une date est entre le 10 et le 15 août inclus
-    public static boolean estPeriodeFermee(LocalDateTime date) {
-    	return date.getMonthValue() == 8 && date.getDayOfMonth() < 16;
+    public static boolean estPeriodeFermee(DateTime date) {
+    	return date.getMonthOfYear() == 8 && date.getDayOfMonth() < 16;
     }
 
 }

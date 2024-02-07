@@ -17,10 +17,10 @@ public class Ticket {
     	res.append(voiture.getPlaqueImmatriculation());
     	res.append("\n");
     	res.append("Date d'entree : ");
-    	res.append(h.formatageHeure(parcmetre.getDateEntree()));
+    	res.append(h.formatageHeure(parcmetre.getDateHeureEntree()));
     	res.append("\n");
     	res.append("Montant paye : ");
-    	res.append(parcmetre.getMontantEntre());
+    	res.append(parcmetre.getMontantEntree());
     	res.append(" euros\n");
     	res.append("Date de sortie : ");
     	res.append(dateSortie);
